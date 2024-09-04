@@ -7,7 +7,6 @@ import { getToken } from "../../utils/checkAuth";
 import DisplayComments from "./BlogComments";
 
 const BlogDetail = () => {
-  console.log(getToken());
   const { id } = useParams();
   const userId = getToken()._id;
   const navigate = useNavigate();
@@ -21,12 +20,8 @@ const BlogDetail = () => {
         const response = await axios.get(`http://localhost:8001/blog/${id}`, {
           withCredentials: true,
         });
-
-        // Simulate a delay to show the shimmer effect
-        setTimeout(() => {
-          setBlog(response.data);
-          setComments(response.data.comments);
-        }, 2000); // 2-second delay
+        setBlog(response.data);
+        setComments(response.data.comments);
       } catch (error) {
         console.error("Error fetching blog:", error);
       }
@@ -41,14 +36,12 @@ const BlogDetail = () => {
     try {
       const response = await axios.post(
         `http://localhost:8001/blog/comment/${id}`,
-        {
-          withCredentials: true,
-          content: commentContent,
-        }
+        { content: commentContent },
+        { withCredentials: true }
       );
 
-      // Add the new comment to the comments array
-      setComments([...comments, response.data.comment]);
+      // Add the new comment to the comments array with user details
+      setComments([response.data.comment, ...comments]);
       setCommentContent(""); // Clear the comment box
     } catch (error) {
       console.error("Error posting comment:", error);
@@ -58,13 +51,10 @@ const BlogDetail = () => {
   if (!blog) {
     return (
       <div className="p-4 max-w-4xl mx-auto">
-        <Shimmer width={150} height={30} className="mb-4" />{" "}
-        {/* Shimmer for title */}
-        <Shimmer width="100%" height={250} className="mb-4" />{" "}
-        {/* Shimmer for cover image */}
-        <Shimmer width={100} height={20} className="mb-4" />{" "}
-        {/* Shimmer for author */}
-        <Shimmer width="100%" height={400} /> {/* Shimmer for blog content */}
+        <Shimmer width={150} height={30} className="mb-4" />
+        <Shimmer width="100%" height={250} className="mb-4" />
+        <Shimmer width={100} height={20} className="mb-4" />
+        <Shimmer width="100%" height={400} />
       </div>
     );
   }
@@ -73,7 +63,6 @@ const BlogDetail = () => {
 
   return (
     <div className="p-4 max-w-4xl mx-auto">
-      {/* Back Arrow */}
       <button
         onClick={() => navigate(`/${userId}/blogs`)}
         className="flex items-center text-blue-600 hover:text-blue-800 mb-4">
@@ -92,7 +81,6 @@ const BlogDetail = () => {
         <p>{blog.content}</p>
       </div>
 
-      {/* Comment Box */}
       <form onSubmit={handleCommentSubmit} className="mt-6">
         <textarea
           value={commentContent}
@@ -108,7 +96,6 @@ const BlogDetail = () => {
         </button>
       </form>
 
-      {/* Display Comments */}
       <DisplayComments comments={comments} />
     </div>
   );

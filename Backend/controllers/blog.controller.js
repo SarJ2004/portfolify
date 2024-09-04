@@ -1,5 +1,6 @@
 import { Blog } from "../models/blog.model.js";
-
+import { User } from "../models/user.model.js";
+import mongoose from "mongoose";
 // Controller to get all blogs
 const getAllBlogs = async (req, res) => {
   try {
@@ -39,21 +40,20 @@ const createBlog = async (req, res) => {
 };
 const getBlog = async (req, res) => {
   try {
-    // Extract the blog ID from the request parameters
     const { id } = req.params;
 
-    // Fetch the blog from the database by its ID
-    const blog = await Blog.findById(id).populate("author", "name").exec();
+    // Fetch the blog with populated author and comments.user
+    const blog = await Blog.findById(id)
+      .populate("author", "name avatar") // Populate author details
+      .populate("comments.user", "name avatar") // Populate user details for comments
+      .exec();
 
-    // Check if the blog was found
     if (!blog) {
       return res.status(404).json({ message: "Blog not found" });
     }
 
-    // Send the fetched blog as a response
     res.status(200).json(blog);
   } catch (error) {
-    // Handle any errors that occur during the request
     res.status(500).json({ message: "Error retrieving blog", error });
   }
 };
@@ -72,9 +72,16 @@ const createComment = async (req, res) => {
       return res.status(404).json({ message: "Blog post not found" });
     }
 
+    // Find the user details
+    const user = await User.findById(userId);
+
     // Create a new comment object
     const newComment = {
-      user: mongoose.Types.ObjectId(userId), // User ID from the authenticated user
+      user: {
+        _id: user._id,
+        name: user.name,
+        avatar: user.avatar,
+      },
       content,
       createdAt: new Date(),
     };
@@ -97,4 +104,5 @@ const createComment = async (req, res) => {
     });
   }
 };
+
 export { getAllBlogs, createBlog, getBlog, createComment };

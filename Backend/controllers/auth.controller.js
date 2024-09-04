@@ -25,8 +25,9 @@ async function handleUserSignup(req, res) {
     // Set the cookie with appropriate options
     res.cookie("token", token, {
       httpOnly: false, // Helps prevent XSS attacks
-      sameSite: "none", // Adjust according to your needs (e.g., 'lax', 'none')
+      sameSite: "strict", // Adjust according to your needs (e.g., 'lax', 'strict')
       maxAge: 3600000,
+      secure: false,
     });
 
     console.log(token);
@@ -63,8 +64,9 @@ async function handleUserLogin(req, res) {
     // Set the cookie with appropriate options
     res.cookie("token", token, {
       httpOnly: false, // Helps prevent XSS attacks
-      sameSite: "none", // Adjust according to your needs (e.g., 'lax', 'none')
+      sameSite: "strict", // Adjust according to your needs (e.g., 'lax', 'none')
       maxAge: 3600000,
+      secure: false,
     });
     console.log(token);
     // Respond with success and the token

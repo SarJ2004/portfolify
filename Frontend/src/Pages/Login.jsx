@@ -20,7 +20,7 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-
+      console.log(response.status);
       if (response.status === 200) {
         console.log(response);
         const userId = response.data.id; // Adjust according to your response

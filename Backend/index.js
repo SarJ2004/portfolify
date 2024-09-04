@@ -1,5 +1,5 @@
 import { connectToMongoDB } from "./connect.js";
-import { checkForAuthentication } from "./middlewares/auth.middleware.js";
+import { authenticate } from "./middlewares/auth.middleware.js";
 import authRoute from "./routes/auth.route.js";
 import userRoute from "./routes/user.route.js";
 import attendanceRoute from "./routes/attendance.route.js";
@@ -13,15 +13,7 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (!origin || origin.startsWith("http://localhost:5173")) {
-      // Allow requests from localhost:5173 and its sub-paths
-      callback(null, true);
-    } else {
-      // Reject requests from other origins
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: "http://localhost:5173",
   credentials: true, // Allow cookies to be sent
 };
 
@@ -41,6 +33,6 @@ app.use("/", authRoute);
 app.use("/user", userRoute);
 app.use("/attendance", attendanceRoute);
 app.use("/avatar", avatarRoute);
-app.use("/blog", checkForAuthentication, blogRoute);
+app.use("/blog", blogRoute);
 
 app.listen(PORT, () => console.log(`Server Started at PORT:${PORT}`));

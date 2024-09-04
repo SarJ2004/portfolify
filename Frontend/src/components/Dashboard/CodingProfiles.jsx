@@ -7,26 +7,28 @@ function CodingProfiles({ user }) {
   const [activeTab, setActiveTab] = useState("LeetCode");
 
   const renderTabContent = () => {
+    if (!user || !user.codingProfiles) {
+      return <div>Loading coding profiles...</div>;
+    }
+
     switch (activeTab) {
       case "LeetCode":
-        return (
-          user.codingProfiles.leetCode && (
-            <CircularProgressChart username={user.codingProfiles.leetCode} />
-          )
+        return user.codingProfiles.leetCode ? (
+          <CircularProgressChart username={user.codingProfiles.leetCode} />
+        ) : (
+          <div>No LeetCode profile available.</div>
         );
       case "Codeforces":
-        return (
-          user.codingProfiles.codeforces && (
-            <CodeforcesUserInfo username={user.codingProfiles.codeforces} />
-          )
+        return user.codingProfiles.codeforces ? (
+          <CodeforcesUserInfo username={user.codingProfiles.codeforces} />
+        ) : (
+          <div>No Codeforces profile available.</div>
         );
       case "GeeksForGeeks":
-        return (
-          user.codingProfiles.geeksForGeeks && (
-            <GeeksForGeeksDisplay
-              username={user.codingProfiles.geeksForGeeks}
-            />
-          )
+        return user.codingProfiles.geeksForGeeks ? (
+          <GeeksForGeeksDisplay username={user.codingProfiles.geeksForGeeks} />
+        ) : (
+          <div>No GeeksForGeeks profile available.</div>
         );
       default:
         return null;
@@ -34,7 +36,7 @@ function CodingProfiles({ user }) {
   };
 
   return (
-    <div className="mb-6 p-4 bg-white rounded-lg shadow-md min-h-[600px]">
+    <div className="mb-6 p-4 bg-white rounded-lg shadow-md min-h-[630px]">
       <h2 className="text-xl font-semibold mb-4">Coding Profiles</h2>
       <div className="mb-4 flex flex-wrap justify-center sm:justify-start">
         <button
