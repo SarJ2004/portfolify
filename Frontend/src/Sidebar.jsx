@@ -31,7 +31,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       if (userId) {
         try {
           const response = await axios.get(
-            `http://localhost:8001/user/${userId}`,
+            `https://portfolify-backend.onrender.com/user/${userId}`,
             {
               withCredentials: true,
             }

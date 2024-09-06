@@ -17,9 +17,12 @@ const BlogDetail = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const response = await axios.get(`http://localhost:8001/blog/${id}`, {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          `https://portfolify-backend.onrender.com/blog/${id}`,
+          {
+            withCredentials: true,
+          }
+        );
         setBlog(response.data);
         setComments(response.data.comments);
       } catch (error) {
@@ -35,7 +38,7 @@ const BlogDetail = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8001/blog/comment/${id}`,
+        `https://portfolify-backend.onrender.com/blog/comment/${id}`,
         { content: commentContent },
         { withCredentials: true }
       );

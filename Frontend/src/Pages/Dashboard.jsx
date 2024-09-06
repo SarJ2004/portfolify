@@ -53,13 +53,16 @@ const Dashboard = () => {
 
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:8001/user/${id}`, {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          `https://portfolify-backend.onrender.com/user/${id}`,
+          {
+            withCredentials: true,
+          }
+        );
         setUser(response.data);
 
         const attendanceResponse = await axios.get(
-          `http://localhost:8001/attendance/${id}`,
+          `https://portfolify-backend.onrender.com/attendance/${id}`,
           {
             withCredentials: true,
           }

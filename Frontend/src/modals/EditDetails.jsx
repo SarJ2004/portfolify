@@ -67,7 +67,7 @@ const EditDetailsModal = ({ isOpen, onClose, user, onAvatarUpdate }) => {
 
       try {
         const response = await axios.post(
-          `http://localhost:8001/avatar/${id}`,
+          `https://portfolify-backend.onrender.com/avatar/${id}`,
           formData,
           {
             headers: {
@@ -96,13 +96,16 @@ const EditDetailsModal = ({ isOpen, onClose, user, onAvatarUpdate }) => {
     await handleAvatarUpload();
 
     try {
-      const response = await axios.patch(`http://localhost:8001/user/${id}`, {
-        name,
-        bio,
-        resume,
-        currentGrade,
-        codingProfiles,
-      });
+      const response = await axios.patch(
+        `https://portfolify-backend.onrender.com/user/${id}`,
+        {
+          name,
+          bio,
+          resume,
+          currentGrade,
+          codingProfiles,
+        }
+      );
 
       setModalMessage("User details updated successfully!");
       setShowModal(true);

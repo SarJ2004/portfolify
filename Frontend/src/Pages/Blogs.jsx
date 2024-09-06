@@ -9,7 +9,9 @@ const Blogs = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get("http://localhost:8001/blog/all"); // Adjust the API endpoint
+        const response = await axios.get(
+          "https://portfolify-backend.onrender.com/blog/all"
+        ); // Adjust the API endpoint
         setBlogs(response.data);
       } catch (error) {
         console.error("Error fetching blogs:", error);
