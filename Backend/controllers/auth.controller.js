@@ -1,7 +1,8 @@
 import { User } from "../models/user.model.js";
 import { setUser } from "../services/auth.service.js";
 import bcrypt from "bcrypt";
-
+import dotenv from "dotenv";
+dotenv.config();
 async function handleUserSignup(req, res) {
   try {
     const { name, email, password } = req.body;
