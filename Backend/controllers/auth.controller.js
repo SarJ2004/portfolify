@@ -27,7 +27,7 @@ async function handleUserSignup(req, res) {
     res.cookie("token", token, {
       httpOnly: false, // Prevent access via JavaScript
       sameSite: "None", // Adjust for cross-origin
-      secure: false, // Ensure cookie is only sent over HTTPS in production
+      secure: true, // Ensure cookie is only sent over HTTPS in production
       maxAge: 3600000, // 1 hour
     });
 
@@ -66,7 +66,7 @@ async function handleUserLogin(req, res) {
     res.cookie("token", token, {
       httpOnly: false, // Prevent access via JavaScript
       sameSite: "None", // Adjust for cross-origin
-      secure: false, // Ensure cookie is only sent over HTTPS in production
+      secure: true, // Ensure cookie is only sent over HTTPS in production
       maxAge: 3600000, // 1 hour
     });
 
