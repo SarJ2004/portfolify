@@ -13,7 +13,7 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://main--portfolify-client.netlify.app",
   credentials: true, // Allow cookies to be sent
 };
 
