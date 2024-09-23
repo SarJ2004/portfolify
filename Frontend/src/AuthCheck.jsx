@@ -8,6 +8,7 @@ const checkLoggedIn = () => {
   const tokenCookie = cookies.find((cookie) =>
     cookie.trim().startsWith("token=")
   );
+  console.log(tokenCookie);
 
   if (tokenCookie !== undefined) {
     const token = tokenCookie.split("=")[1].trim();
@@ -25,7 +26,7 @@ const AuthCheck = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false); // State for sidebar open/closed
   const userId = checkLoggedIn();
-
+  console.log(userId);
   useEffect(() => {
     if (!userId) {
       navigate("/landing"); // Redirect to the landing page if not logged in
