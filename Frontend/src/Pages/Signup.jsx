@@ -24,7 +24,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "https://portfolify-backend.onrender.com/signup",
+        "https://portfolify.onrender.com/signup",
         {
           name,
           email,

@@ -32,7 +32,11 @@ const createBlog = async (req, res) => {
     const savedBlog = await newBlog.save();
 
     // Send the saved blog as a response
-    res.status(201).json(savedBlog);
+    // console.log(savedBlog._id);
+    res.status(201).json({
+      blogId: savedBlog._id, // Include blogId in the response
+      ...savedBlog.toObject(), // Include the rest of the saved blog data
+    });
   } catch (error) {
     // Handle any errors that occur during the request
     res.status(500).json({ message: "Error creating blog", error });
@@ -105,4 +109,70 @@ const createComment = async (req, res) => {
   }
 };
 
-export { getAllBlogs, createBlog, getBlog, createComment };
+const toggleSaveBlog = async (req, res) => {
+  try {
+    const { userId, blogId } = req.params; // Assuming user ID is available in req.user
+
+    const user = await User.findById(userId);
+
+    // Check if the blog is already saved
+    const isSaved = user.savedBlogs.includes(blogId);
+
+    if (isSaved) {
+      // Remove from saved blogs
+      user.savedBlogs = user.savedBlogs.filter(
+        (id) => id.toString() !== blogId
+      );
+    } else {
+      // Add to saved blogs
+      user.savedBlogs.push(blogId);
+    }
+
+    await user.save();
+
+    res.status(200).json({ saved: !isSaved });
+  } catch (error) {
+    res.status(500).json({ error: "Server Error" });
+  }
+};
+
+const handleSaved = async (req, res) => {
+  const { userId } = req.params;
+  console.log("userId", userId);
+
+  try {
+    // Validate ObjectId
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid user ID format" });
+    }
+
+    // Fetch the user and populate savedBlogs with author details
+    const user = await User.findById(userId).populate({
+      path: "savedBlogs",
+      populate: {
+        path: "author",
+        select: "name", // Include only the name field from the author
+      },
+    });
+
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Return saved blog details with author names
+    res.json(user.savedBlogs);
+  } catch (error) {
+    console.error("Error fetching saved blogs:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export {
+  getAllBlogs,
+  createBlog,
+  getBlog,
+  createComment,
+  toggleSaveBlog,
+  handleSaved,
+};

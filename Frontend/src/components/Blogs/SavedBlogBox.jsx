@@ -1,21 +1,16 @@
+/* eslint-disable react/prop-types */
+// components/BlogBox.jsx
+
 import { Link } from "react-router-dom";
 
-const BlogBox = ({ blog }) => {
+const SavedBlogBox = ({ blog }) => {
   // Extract author name or use a placeholder
   const authorName = blog.author?.name || "Unknown author";
-
-  // Define the maximum length for the content snippet
-  const maxLength = 100; // You can adjust this value as needed
-
-  // Truncate the content if it's too long
-  const truncatedContent =
-    blog.content.length > maxLength
-      ? blog.content.substring(0, maxLength) + "....."
-      : blog.content;
+  console.log("blog", blog);
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-      <Link to={`/blogs/${blog._id}`}>
+      <Link to={`/blogs/saved/${blog._id}`}>
         <img
           src={blog.coverImage}
           alt={blog.title}
@@ -24,11 +19,10 @@ const BlogBox = ({ blog }) => {
         <div className="p-4">
           <h3 className="text-lg font-semibold">{blog.title}</h3>
           <p className="text-gray-600">by {authorName}</p>
-          <p className="text-gray-800 mt-2">{truncatedContent}</p>
         </div>
       </Link>
     </div>
   );
 };
 
-export default BlogBox;
+export default SavedBlogBox;

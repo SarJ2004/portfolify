@@ -26,8 +26,8 @@ async function handleUserSignup(req, res) {
     // Set the cookie with appropriate options
     res.cookie("token", token, {
       httpOnly: false, // Prevent access via JavaScript
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Strict", // Adjust for cross-origin
-      secure: process.env.NODE_ENV === "production", // Ensure cookie is only sent over HTTPS in production
+      sameSite: "None", // Adjust for cross-origin
+      secure: true, // Ensure cookie is only sent over HTTPS in production
       maxAge: 3600000, // 1 hour
     });
 
@@ -65,8 +65,8 @@ async function handleUserLogin(req, res) {
     // Set the cookie with appropriate options
     res.cookie("token", token, {
       httpOnly: false, // Prevent access via JavaScript
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Strict", // Adjust for cross-origin
-      secure: process.env.NODE_ENV === "production", // Ensure cookie is only sent over HTTPS in production
+      sameSite: "None", // Adjust for cross-origin
+      secure: true, // Ensure cookie is only sent over HTTPS in production
       maxAge: 3600000, // 1 hour
     });
 

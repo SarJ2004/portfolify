@@ -3,8 +3,7 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { Shimmer } from "react-shimmer";
-import CircularProgressChart from "../components/Dashboard/LeetCodeDisplay";
-import CodeforcesUserInfo from "../components/Dashboard/CodeforcesDisplay";
+import { motion } from "framer-motion";
 import CodingProfiles from "../components/Dashboard/CodingProfiles";
 
 const getAuthToken = () => {
@@ -54,7 +53,7 @@ const Dashboard = () => {
     const fetchUserInfo = async () => {
       try {
         const response = await axios.get(
-          `https://portfolify-backend.onrender.com/user/${id}`,
+          `https://portfolify.onrender.com/user/${id}`,
           {
             withCredentials: true,
           }
@@ -62,7 +61,7 @@ const Dashboard = () => {
         setUser(response.data);
 
         const attendanceResponse = await axios.get(
-          `https://portfolify-backend.onrender.com/attendance/${id}`,
+          `https://portfolify.onrender.com/attendance/${id}`,
           {
             withCredentials: true,
           }
@@ -84,46 +83,77 @@ const Dashboard = () => {
   if (!user) {
     return (
       <div className="p-4 sm:p-6 bg-gray-100 min-h-screen">
-        <h1 className="text-2xl font-bold mb-6 text-center">
+        <motion.h1
+          className="text-2xl font-bold mb-6 text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}>
           <Shimmer width={200} height={30} />
-        </h1>
+        </motion.h1>
 
-        <div className="mb-6 p-4 bg-white rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-4 text-center">
+        <motion.div
+          className="mb-6 p-4 bg-white rounded-lg shadow-md"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}>
+          <motion.h2
+            className="text-xl font-semibold mb-4 text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}>
             <Shimmer width={150} height={20} />
-          </h2>
+          </motion.h2>
           <div className="space-y-4">
             {[...Array(3)].map((_, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="p-4 rounded-lg shadow-md flex justify-between items-center">
+                className="p-4 rounded-lg shadow-md flex justify-between items-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: index * 0.5 }}>
                 <div className="flex flex-col">
                   <Shimmer width={100} height={20} />
                   <Shimmer width={150} height={15} className="mt-2" />
                 </div>
                 <Shimmer width={70} height={30} />
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        <div className="mb-6 p-4 bg-white rounded-lg shadow-md">
+        <motion.div
+          className="mb-6 p-4 bg-white rounded-lg shadow-md"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1 }}>
           <CodingProfiles user={user} />
-        </div>
+        </motion.div>
       </div>
     );
   }
 
   return (
     <div className="p-4 sm:p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-6 text-center">
+      <motion.h1
+        className="text-2xl font-bold mb-6 text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}>
         Welcome, {user.name}!
-      </h1>
+      </motion.h1>
 
-      <div className="mb-6 p-4 bg-white rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold mb-4 text-center">
+      <motion.div
+        className="mb-6 p-4 bg-white rounded-lg shadow-md"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}>
+        <motion.h2
+          className="text-xl font-semibold mb-4 text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}>
           Attendance Overview
-        </h2>
+        </motion.h2>
         {attendance.length === 0 ? (
           <p className="text-center text-gray-500">
             No attendance data available.
@@ -138,7 +168,7 @@ const Dashboard = () => {
               const isBelowThreshold = attendancePercentage < 75;
 
               return (
-                <li
+                <motion.li
                   key={subject._id}
                   className="p-4 rounded-lg shadow-md flex flex-col sm:flex-row justify-between items-center"
                   style={{
@@ -147,7 +177,10 @@ const Dashboard = () => {
                         ? "rgba(255, 99, 99, 0.5)"
                         : "rgba(72, 187, 120, 0.5)"
                     } ${attendancePercentage}%, rgba(255, 255, 255, 0) ${attendancePercentage}%)`,
-                  }}>
+                  }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}>
                   <div className="flex flex-col sm:w-2/3">
                     <h3 className="text-lg font-semibold text-gray-700">
                       {subject.name}
@@ -170,14 +203,20 @@ const Dashboard = () => {
                     }`}>
                     {attendancePercentage}%
                   </div>
-                </li>
+                </motion.li>
               );
             })}
           </ul>
         )}
-      </div>
+      </motion.div>
 
-      <CodingProfiles user={user} />
+      <motion.div
+        className="p-4 sm:p-6 bg-gray-100 min-h-screen"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.5 }}>
+        <CodingProfiles user={user} />
+      </motion.div>
     </div>
   );
 };

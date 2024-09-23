@@ -6,7 +6,7 @@ import { Shimmer } from "react-shimmer";
 import { getToken } from "../../utils/checkAuth";
 import DisplayComments from "./BlogComments";
 
-const BlogDetail = () => {
+const SavedBlogDetail = () => {
   const { id } = useParams();
   const userId = getToken()?._id;
   const navigate = useNavigate();
@@ -88,10 +88,10 @@ const BlogDetail = () => {
   return (
     <div className="p-4 max-w-4xl mx-auto">
       <button
-        onClick={() => navigate(`/${userId}/blogs`)}
+        onClick={() => navigate(`/${userId}/saved`)}
         className="flex items-center text-blue-600 hover:text-blue-800 mb-4">
         <FaArrowLeft className="mr-2" />
-        Back to Blogs
+        Back to Saved
       </button>
 
       <div className="mb-4 flex flex-col items-center">
@@ -114,11 +114,8 @@ const BlogDetail = () => {
       </div>
 
       <p className="text-gray-600 mb-4">by {authorName}</p>
-
-      <div className="bg-gray-800 p-6 rounded-lg shadow-sm text-white">
-        <div className="prose prose-sm sm:prose-base lg:prose-lg max-w-full">
-          <p>{blog.content}</p>
-        </div>
+      <div className="prose">
+        <p>{blog.content}</p>
       </div>
 
       <form onSubmit={handleCommentSubmit} className="mt-6">
@@ -141,4 +138,4 @@ const BlogDetail = () => {
   );
 };
 
-export default BlogDetail;
+export default SavedBlogDetail;

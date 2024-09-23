@@ -8,7 +8,7 @@ import BlogDetail from "./components/Blogs/BlogDetails"; // Import BlogDetail
 import Saved from "./Pages/Saved";
 import ProtectedRoute from "./AuthCheck";
 import Attendance from "./components/Dashboard/AttendanceData";
-
+import SavedBlogDetail from "./components/Blogs/SavedBlogDetail"; // Import SavedBlogDetail
 const router = createBrowserRouter([
   {
     path: "/landing",
@@ -37,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/blogs/:id", // This should handle blog detail views
         element: <BlogDetail />,
+      },
+      {
+        path: "/blogs/saved/:id", // This should handle blog detail views
+        element: <SavedBlogDetail />,
       },
       {
         path: "/:id/saved",

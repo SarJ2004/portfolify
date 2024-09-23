@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://portfolify-backend.onrender.com/login",
+        "https://portfolify.onrender.com/login",
         {
           email,
           password,

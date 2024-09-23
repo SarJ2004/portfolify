@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
 import {
   FaTachometerAlt,
   FaBlog,
@@ -11,7 +10,7 @@ import {
   FaChevronRight,
   FaSignOutAlt,
 } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import LogoutModal from "./modals/Logout";
 import EditDetailsModal from "./modals/EditDetails";
 import { getToken } from "./utils/checkAuth.js"; // Import the utility function
@@ -24,19 +23,17 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const location = useLocation(); // To get current path
   const userId = getToken()._id;
+
   useEffect(() => {
     const fetchUserInfo = async () => {
-      // Get the user ID from the token
       if (userId) {
         try {
           const response = await axios.get(
-            `https://portfolify-backend.onrender.com/user/${userId}`,
-            {
-              withCredentials: true,
-            }
+            `https://portfolify.onrender.com/user/${userId}`,
+            { withCredentials: true }
           );
-          // console.log(response.data);
           setUser(response.data);
         } catch (error) {
           setError("Failed to fetch user info");
@@ -110,13 +107,28 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     setIsOpen(!isOpen);
   };
 
+  const menuItems = [
+    {
+      to: `/${userId}/dashboard`,
+      icon: <FaTachometerAlt />,
+      label: "Dashboard",
+    },
+    {
+      to: `/${userId}/attendance`,
+      icon: <FaClipboardList />,
+      label: "Attendance",
+    },
+    { to: `/${userId}/blogs`, icon: <FaBlog />, label: "Blogs" },
+    { to: `/${userId}/saved`, icon: <FaBookmark />, label: "Saved" },
+  ];
+
   return (
     <>
       <motion.div
         initial="closed"
         animate={isOpen ? "open" : "closed"}
         variants={sidebarVariants}
-        className="fixed top-0 left-0 h-screen bg-gray-800 text-white p-4 z-40 sidebar md:w-64 sm:w-48 ">
+        className="fixed top-0 left-0 h-screen bg-gray-800 text-white p-4 z-40 sidebar md:w-64 sm:w-48">
         <div
           className={`flex flex-col items-center ${isOpen ? "pt-12" : "pt-8"}`}>
           <motion.div
@@ -150,24 +162,15 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         </div>
         <nav className="mt-8">
           <motion.ul className="space-y-4">
-            {[
-              {
-                to: `/${userId}/dashboard`,
-                icon: <FaTachometerAlt />,
-                label: "Dashboard",
-              },
-              {
-                to: `/${userId}/attendance`,
-                icon: <FaClipboardList />,
-                label: "Attendance",
-              },
-              { to: `/${userId}/blogs`, icon: <FaBlog />, label: "Blogs" },
-              { to: `/${userId}/saved`, icon: <FaBookmark />, label: "Saved" },
-            ].map((item, index) => (
+            {menuItems.map((item, index) => (
               <motion.li
                 key={index}
                 variants={itemVariants}
-                className="relative flex items-center py-2 rounded-lg transition-colors duration-300 ease-in-out hover:bg-gray-700 group"
+                className={`relative flex items-center py-2 rounded-lg transition-colors duration-300 ease-in-out group ${
+                  location.pathname === item.to
+                    ? "bg-gray-700"
+                    : "hover:bg-gray-700"
+                }`}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 style={{

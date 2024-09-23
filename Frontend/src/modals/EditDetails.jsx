@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { AiOutlineEdit, AiOutlineClose } from "react-icons/ai";
 import { motion, AnimatePresence } from "framer-motion";
-import UpdateDetails from "../modals/UpdateDetails"; // Adjust path as needed
 
 const EditDetailsModal = ({ isOpen, onClose, user, onAvatarUpdate }) => {
   const defaultUser = {
@@ -17,7 +16,7 @@ const EditDetailsModal = ({ isOpen, onClose, user, onAvatarUpdate }) => {
       geeksForGeeks: "",
     },
   };
-  // console.log(user);
+
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(
     user ? user.avatar : defaultUser.avatar
@@ -67,7 +66,7 @@ const EditDetailsModal = ({ isOpen, onClose, user, onAvatarUpdate }) => {
 
       try {
         const response = await axios.post(
-          `https://portfolify-backend.onrender.com/avatar/${id}`,
+          `https://portfolify.onrender.com/avatar/${id}`,
           formData,
           {
             headers: {
@@ -97,7 +96,7 @@ const EditDetailsModal = ({ isOpen, onClose, user, onAvatarUpdate }) => {
 
     try {
       const response = await axios.patch(
-        `https://portfolify-backend.onrender.com/user/${id}`,
+        `https://portfolify.onrender.com/user/${id}`,
         {
           name,
           bio,
@@ -142,12 +141,11 @@ const EditDetailsModal = ({ isOpen, onClose, user, onAvatarUpdate }) => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 backdrop-blur-sm z-50"
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 backdrop-blur-md z-50" // Updated class names for the blur effect
           initial="hidden"
           animate="visible"
           exit="exit"
-          variants={modalVariants}
-          transition={{ duration: 0.3 }}>
+          variants={modalVariants}>
           <div className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full relative overflow-hidden">
             <button
               onClick={onClose}
@@ -251,17 +249,12 @@ const EditDetailsModal = ({ isOpen, onClose, user, onAvatarUpdate }) => {
                 className={`flex items-center mt-4 px-4 py-2 ${
                   saving
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-green-500 hover:bg-green-600"
-                } text-white rounded-lg shadow-lg transition-colors duration-200`}>
-                <span>{saving ? "Saving..." : "Save Changes"}</span>
+                    : "bg-green-500 hover:bg-green-600 text-white"
+                } rounded-lg shadow-md transition-colors duration-200`}>
+                {saving ? "Saving..." : "Save Changes"}
               </button>
             </div>
           </div>
-          <UpdateDetails
-            isOpen={showModal}
-            onClose={() => setShowModal(false)}
-            message={modalMessage}
-          />
         </motion.div>
       )}
     </AnimatePresence>
