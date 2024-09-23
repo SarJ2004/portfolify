@@ -27,9 +27,8 @@ async function handleUserSignup(req, res) {
     res.cookie("token", token, {
       httpOnly: false, // Prevent access via JavaScript
       sameSite: "None", // Adjust for cross-origin
-      secure: true, // Ensure cookie is only sent over HTTPS in production
+      secure: false, // Ensure cookie is only sent over HTTPS in production
       maxAge: 3600000, // 1 hour
-      domain: "https://portfolify.onrender.com/",
     });
 
     console.log(token);
@@ -67,9 +66,8 @@ async function handleUserLogin(req, res) {
     res.cookie("token", token, {
       httpOnly: false, // Prevent access via JavaScript
       sameSite: "None", // Adjust for cross-origin
-      secure: true, // Ensure cookie is only sent over HTTPS in production
+      secure: false, // Ensure cookie is only sent over HTTPS in production
       maxAge: 3600000, // 1 hour
-      domain: "https://portfolify.onrender.com/",
     });
 
     console.log(token);
