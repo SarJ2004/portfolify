@@ -28,7 +28,7 @@ async function handleUserSignup(req, res) {
       httpOnly: false, // Prevent access via JavaScript
       sameSite: "None", // Adjust for cross-origin
       secure: true, // Ensure cookie is only sent over HTTPS in production
-      maxAge: 3600000, // 1 hour
+      maxAge: 3600000 * 24, // 1 hour
     });
 
     console.log(token);
@@ -67,7 +67,7 @@ async function handleUserLogin(req, res) {
       httpOnly: false, // Prevent access via JavaScript
       sameSite: "None", // Adjust for cross-origin
       secure: true, // Ensure cookie is only sent over HTTPS in production
-      maxAge: 3600000, // 1 hour
+      maxAge: 3600000 * 24, // 1 hour
     });
 
     console.log(token);
