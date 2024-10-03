@@ -13,4 +13,10 @@ export default defineConfig({
       },
     },
   },
+  rewrites: [
+    {
+      source: "**",
+      destination: "/index.html",
+    },
+  ],
 });
