@@ -66,7 +66,7 @@ const EditDetailsModal = ({ isOpen, onClose, user, onAvatarUpdate }) => {
 
       try {
         const response = await axios.post(
-          `https://portfolify.onrender.com/avatar/${id}`,
+          `https://portfolify-4bjg.onrender.com/avatar/${id}`,
           formData,
           {
             headers: {
@@ -96,7 +96,7 @@ const EditDetailsModal = ({ isOpen, onClose, user, onAvatarUpdate }) => {
 
     try {
       const response = await axios.patch(
-        `https://portfolify.onrender.com/user/${id}`,
+        `https://portfolify-4bjg.onrender.com/user/${id}`,
         {
           name,
           bio,

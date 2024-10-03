@@ -21,7 +21,7 @@ function AddBlog({ authorId, onClose, onBlogCreated }) {
       };
 
       const response = await axios.post(
-        `https://portfolify.onrender.com/blog/${authorId}`,
+        `https://portfolify-4bjg.onrender.com/blog/${authorId}`,
         blogData
       );
 
@@ -45,7 +45,7 @@ function AddBlog({ authorId, onClose, onBlogCreated }) {
 
     try {
       const response = await axios.post(
-        `https://portfolify.onrender.com/blog/banner/${blogId}`,
+        `https://portfolify-4bjg.onrender.com/blog/banner/${blogId}`,
         formData,
         {
           headers: {

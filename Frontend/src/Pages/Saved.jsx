@@ -16,7 +16,7 @@ const Saved = () => {
     const fetchBlogs = async () => {
       try {
         const response = await axios.get(
-          `https://portfolify.onrender.com/user/${userId}/saved`
+          `https://portfolify-4bjg.onrender.com/user/${userId}/saved`
         );
         setBlogs(response.data);
         setFilteredBlogs(response.data);

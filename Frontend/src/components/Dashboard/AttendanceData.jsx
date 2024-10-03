@@ -16,7 +16,7 @@ const Attendance = () => {
   // Fetch subjects on mount
   useEffect(() => {
     axios
-      .get(`https://portfolify.onrender.com/attendance/${id}`)
+      .get(`https://portfolify-4bjg.onrender.com/attendance/${id}`)
       .then((response) => setSubjects(response.data.subjects || []))
       .catch((error) => console.error("Error fetching subjects:", error));
   }, [id]);
@@ -37,7 +37,7 @@ const Attendance = () => {
     ];
 
     axios
-      .post(`https://portfolify.onrender.com/attendance/${id}`, {
+      .post(`https://portfolify-4bjg.onrender.com/attendance/${id}`, {
         subjects: updatedSubjects,
       })
       .then((response) => {
@@ -64,7 +64,7 @@ const Attendance = () => {
     });
 
     axios
-      .post(`https://portfolify.onrender.com/attendance/${id}`, {
+      .post(`https://portfolify-4bjg.onrender.com/attendance/${id}`, {
         subjects: updatedSubjects,
       })
       .then((response) => setSubjects(response.data.subjects))
@@ -78,7 +78,7 @@ const Attendance = () => {
     );
 
     axios
-      .post(`https://portfolify.onrender.com/attendance/${id}`, {
+      .post(`https://portfolify-4bjg.onrender.com/attendance/${id}`, {
         subjects: updatedSubjects,
       })
       .then((response) => setSubjects(response.data.subjects))

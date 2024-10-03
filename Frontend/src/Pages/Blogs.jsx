@@ -18,7 +18,7 @@ const Blogs = () => {
     const fetchBlogs = async () => {
       try {
         const response = await axios.get(
-          "https://portfolify.onrender.com/blog/all"
+          "https://portfolify-4bjg.onrender.com/blog/all"
         );
         setBlogs(response.data);
         setFilteredBlogs(response.data);
@@ -52,7 +52,7 @@ const Blogs = () => {
   const handleBlogCreated = async () => {
     try {
       const response = await axios.get(
-        "https://portfolify.onrender.com/blog/all"
+        "https://portfolify-4bjg.onrender.com/blog/all"
       );
       setBlogs(response.data);
     } catch (error) {

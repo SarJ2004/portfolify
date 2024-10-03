@@ -19,7 +19,7 @@ const SavedBlogDetail = () => {
     const fetchBlog = async () => {
       try {
         const response = await axios.get(
-          `https://portfolify.onrender.com/blog/${id}`,
+          `https://portfolify-4bjg.onrender.com/blog/${id}`,
           {
             withCredentials: true,
           }
@@ -29,7 +29,7 @@ const SavedBlogDetail = () => {
 
         // Check if the blog is saved by the user
         const savedResponse = await axios.get(
-          `https://portfolify.onrender.com/blog/${userId}/saved/${id}`,
+          `https://portfolify-4bjg.onrender.com/blog/${userId}/saved/${id}`,
           { withCredentials: true }
         );
         setIsSaved(savedResponse.data.saved);
@@ -46,7 +46,7 @@ const SavedBlogDetail = () => {
 
     try {
       const response = await axios.post(
-        `https://portfolify.onrender.com/blog/comment/${id}`,
+        `https://portfolify-4bjg.onrender.com/blog/comment/${id}`,
         { content: commentContent },
         { withCredentials: true }
       );
@@ -62,7 +62,7 @@ const SavedBlogDetail = () => {
   const handleSaveToggle = async () => {
     try {
       const response = await axios.post(
-        `https://portfolify.onrender.com/blog/${userId}/save/${id}`,
+        `https://portfolify-4bjg.onrender.com/blog/${userId}/save/${id}`,
         {}, // No need for a body if you use the route to handle both
         { withCredentials: true }
       );
