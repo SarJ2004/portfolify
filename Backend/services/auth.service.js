@@ -15,7 +15,7 @@ const getUser = (token) => {
   if (!token) return null;
   console.log("Token:", token);
   try {
-    return verify(token, secret); // Correctly using verify here
+    return verify(token, secret);
   } catch (error) {
     console.error("Invalid token:", error);
     return null;

@@ -27,7 +27,6 @@ const BlogDetail = () => {
         setBlog(response.data);
         setComments(response.data.comments);
 
-        // Check if the blog is saved by the user
         const savedResponse = await axios.get(
           `https://portfolify-4bjg.onrender.com/blog/${userId}/saved/${id}`,
           { withCredentials: true }
@@ -51,9 +50,8 @@ const BlogDetail = () => {
         { withCredentials: true }
       );
 
-      // Add the new comment to the comments array with user details
       setComments([response.data.comment, ...comments]);
-      setCommentContent(""); // Clear the comment box
+      setCommentContent("");
     } catch (error) {
       console.error("Error posting comment:", error);
     }
@@ -63,7 +61,7 @@ const BlogDetail = () => {
     try {
       const response = await axios.post(
         `https://portfolify-4bjg.onrender.com/blog/${userId}/save/${id}`,
-        {}, // No need for a body if you use the route to handle both
+        {},
         { withCredentials: true }
       );
       setIsSaved(response.data.saved);

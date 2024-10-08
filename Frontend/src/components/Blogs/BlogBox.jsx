@@ -1,13 +1,10 @@
 import { Link } from "react-router-dom";
 
 const BlogBox = ({ blog }) => {
-  // Extract author name or use a placeholder
   const authorName = blog.author?.name || "Unknown author";
 
-  // Define the maximum length for the content snippet
-  const maxLength = 100; // You can adjust this value as needed
+  const maxLength = 100;
 
-  // Truncate the content if it's too long
   const truncatedContent =
     blog.content.length > maxLength
       ? blog.content.substring(0, maxLength) + "....."

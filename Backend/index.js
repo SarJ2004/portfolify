@@ -14,10 +14,9 @@ import cookieParser from "cookie-parser";
 const app = express();
 const corsOptions = {
   origin: "https://portfolifyf.onrender.com",
-  credentials: true, // Allow cookies to be sent
+  credentials: true,
 };
 
-// Use CORS with the specified options
 app.use(cookieParser());
 app.use(cors(corsOptions));
 const PORT = process.env.PORT || 8001;

@@ -36,7 +36,6 @@ router.get("/:userId/saved/:blogId", async (req, res) => {
   }
 });
 
-// Route to like a blog
 router.post("/:blogId/likes", async (req, res) => {
   const { blogId } = req.params;
 
@@ -47,7 +46,6 @@ router.post("/:blogId/likes", async (req, res) => {
       return res.status(404).json({ message: "Blog not found" });
     }
 
-    // Increment the likes count
     blog.likes += 1;
     await blog.save();
 
@@ -57,7 +55,6 @@ router.post("/:blogId/likes", async (req, res) => {
   }
 });
 
-// Route to dislike a blog
 router.post("/:blogId/dislikes", async (req, res) => {
   const { blogId } = req.params;
 
@@ -68,7 +65,6 @@ router.post("/:blogId/dislikes", async (req, res) => {
       return res.status(404).json({ message: "Blog not found" });
     }
 
-    // Increment the dislikes count
     blog.dislikes += 1;
     await blog.save();
 

@@ -7,15 +7,12 @@ const uploadAvatar = async (req, res) => {
     const user = await User.findById(id);
     if (!user) return res.status(404).send("User not found");
 
-    // Upload image to Cloudinary
     console.log(req.file);
     const result = await cloudinary.uploader.upload(req.file.path);
 
-    // Update user avatar URL
-    user.avatar = result.secure_url; // Get the URL of the uploaded image
+    user.avatar = result.secure_url;
     await user.save();
 
-    // Respond with the new avatar URL
     res.status(200).json({ avatar: user.avatar });
   } catch (err) {
     console.error(err);

@@ -4,7 +4,6 @@
 import { Link } from "react-router-dom";
 
 const SavedBlogBox = ({ blog }) => {
-  // Extract author name or use a placeholder
   const authorName = blog.author?.name || "Unknown author";
   console.log("blog", blog);
 

@@ -1,14 +1,12 @@
 import mongoose from "mongoose";
-import { Attendance } from "../models/attendance.model.js"; // Adjust the path as needed
+import { Attendance } from "../models/attendance.model.js";
 
-// Function to get attendance data for a specific user
 export const getAttendance = async (req, res) => {
   try {
-    const { id } = req.params; // Destructure id from req.params
+    const { id } = req.params;
 
-    // Validate ObjectId
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      console.log("Invalid ID:", id); // Log invalid ID
+      console.log("Invalid ID:", id);
       return res.status(400).json({ message: "Invalid ID" });
     }
 
@@ -18,23 +16,21 @@ export const getAttendance = async (req, res) => {
     );
 
     if (!attendance) {
-      console.log("Attendance record not found for ID:", id); // Log record not found
+      console.log("Attendance record not found for ID:", id);
       return res.status(404).json({ message: "Attendance record not found" });
     }
 
     res.status(200).json(attendance);
   } catch (error) {
-    console.error("Server error:", error); // Log server errors
+    console.error("Server error:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
-// Function to update or create attendance data for a specific user
 export const setAttendance = async (req, res) => {
   try {
-    const { id } = req.params; // Destructure id from req.params
+    const { id } = req.params;
 
-    // Validate ObjectId
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid ID" });
     }
@@ -45,7 +41,6 @@ export const setAttendance = async (req, res) => {
       return res.status(400).json({ message: "Subjects must be an array" });
     }
 
-    // Update or create attendance record
     const attendance = await Attendance.findOneAndUpdate(
       { user: id },
       { $set: { subjects } },
