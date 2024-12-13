@@ -62,7 +62,7 @@ Potfolify is a comprehensive application designed to help students efficiently m
    # In the Backend folder
    npm start
    npm run db
-   enter password
+   # enter mongosh password
    # In the Frontend folder
    npm run dev
    ```
