@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://portfolify-three.vercel.app//login",
+        "https://portfolify-three.vercel.app/login",
         {
           email,
           password,

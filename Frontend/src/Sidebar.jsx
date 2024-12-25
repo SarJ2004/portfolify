@@ -31,7 +31,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       if (userId) {
         try {
           const response = await axios.get(
-            `https://portfolify-three.vercel.app//user/${userId}`,
+            `https://portfolify-three.vercel.app/user/${userId}`,
             { withCredentials: true }
           );
           setUser(response.data);
