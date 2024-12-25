@@ -19,7 +19,7 @@ const BlogDetail = () => {
     const fetchBlog = async () => {
       try {
         const response = await axios.get(
-          `https://portfolify-4bjg.onrender.com/blog/${id}`,
+          `https://portfolify-three.vercel.app//blog/${id}`,
           {
             withCredentials: true,
           }
@@ -28,7 +28,7 @@ const BlogDetail = () => {
         setComments(response.data.comments);
 
         const savedResponse = await axios.get(
-          `https://portfolify-4bjg.onrender.com/blog/${userId}/saved/${id}`,
+          `https://portfolify-three.vercel.app//blog/${userId}/saved/${id}`,
           { withCredentials: true }
         );
         setIsSaved(savedResponse.data.saved);
@@ -45,7 +45,7 @@ const BlogDetail = () => {
 
     try {
       const response = await axios.post(
-        `https://portfolify-4bjg.onrender.com/blog/comment/${id}`,
+        `https://portfolify-three.vercel.app//blog/comment/${id}`,
         { content: commentContent },
         { withCredentials: true }
       );
@@ -60,7 +60,7 @@ const BlogDetail = () => {
   const handleSaveToggle = async () => {
     try {
       const response = await axios.post(
-        `https://portfolify-4bjg.onrender.com/blog/${userId}/save/${id}`,
+        `https://portfolify-three.vercel.app//blog/${userId}/save/${id}`,
         {},
         { withCredentials: true }
       );

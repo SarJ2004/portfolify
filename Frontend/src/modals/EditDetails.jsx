@@ -66,7 +66,7 @@ const EditDetailsModal = ({ isOpen, onClose, user, onAvatarUpdate }) => {
 
       try {
         const response = await axios.post(
-          `https://portfolify-4bjg.onrender.com/avatar/${id}`,
+          `https://portfolify-three.vercel.app//avatar/${id}`,
           formData,
           {
             headers: {
@@ -96,7 +96,7 @@ const EditDetailsModal = ({ isOpen, onClose, user, onAvatarUpdate }) => {
 
     try {
       const response = await axios.patch(
-        `https://portfolify-4bjg.onrender.com/user/${id}`,
+        `https://portfolify-three.vercel.app//user/${id}`,
         {
           name,
           bio,

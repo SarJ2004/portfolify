@@ -21,7 +21,7 @@ function AddBlog({ authorId, onClose, onBlogCreated }) {
       };
 
       const response = await axios.post(
-        `https://portfolify-4bjg.onrender.com/blog/${authorId}`,
+        `https://portfolify-three.vercel.app//blog/${authorId}`,
         blogData
       );
 
@@ -45,7 +45,7 @@ function AddBlog({ authorId, onClose, onBlogCreated }) {
 
     try {
       const response = await axios.post(
-        `https://portfolify-4bjg.onrender.com/blog/banner/${blogId}`,
+        `https://portfolify-three.vercel.app//blog/banner/${blogId}`,
         formData,
         {
           headers: {

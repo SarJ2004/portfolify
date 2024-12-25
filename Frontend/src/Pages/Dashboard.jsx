@@ -53,7 +53,7 @@ const Dashboard = () => {
     const fetchUserInfo = async () => {
       try {
         const response = await axios.get(
-          `https://portfolify-4bjg.onrender.com/user/${id}`,
+          `https://portfolify-three.vercel.app//user/${id}`,
           {
             withCredentials: true,
           }
@@ -61,7 +61,7 @@ const Dashboard = () => {
         setUser(response.data);
 
         const attendanceResponse = await axios.get(
-          `https://portfolify-4bjg.onrender.com/attendance/${id}`,
+          `https://portfolify-three.vercel.app//attendance/${id}`,
           {
             withCredentials: true,
           }

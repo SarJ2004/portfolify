@@ -24,7 +24,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "https://portfolify-4bjg.onrender.com/signup",
+        "https://portfolify-three.vercel.app//signup",
         {
           name,
           email,
