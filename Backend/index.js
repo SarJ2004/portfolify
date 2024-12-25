@@ -12,7 +12,7 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 const corsOptions = {
-  origin: "https://portfolify-frontend.vercel.app/",
+  origin: "https://portfolify-frontend.vercel.app",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 };
