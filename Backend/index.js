@@ -1,5 +1,4 @@
 import { connectToMongoDB } from "./connect.js";
-import { authenticate } from "./middlewares/auth.middleware.js";
 import authRoute from "./routes/auth.route.js";
 import userRoute from "./routes/user.route.js";
 import attendanceRoute from "./routes/attendance.route.js";
@@ -13,7 +12,7 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 const corsOptions = {
-  origin: "https://portfolifyf.onrender.com",
+  origin: true,
   credentials: true,
 };
 
