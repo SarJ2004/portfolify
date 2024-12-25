@@ -14,8 +14,9 @@ const app = express();
 const corsOptions = {
   origin: "https://portfolify-frontend.vercel.app/",
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 };
-
+app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
 const PORT = process.env.PORT || 8001;
@@ -23,8 +24,6 @@ const PORT = process.env.PORT || 8001;
 connectToMongoDB(process.env.MONGO_URI)
   .then(() => console.log(`Mongodb connected`))
   .catch((err) => console.log(err));
-
-app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 app.use("/", authRoute);
