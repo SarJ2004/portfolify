@@ -20,11 +20,12 @@ async function handleUserSignup(req, res) {
     const token = setUser(newUser);
 
     res.cookie("token", token, {
-      httpOnly: false,
-      sameSite: "None",
+      httpOnly: true,
+      sameSite: "none",
       secure: true,
       maxAge: 3600000 * 24,
       path: "/",
+      domain: "portfolify-frontend.vercel.app",
     });
 
     console.log(token);
@@ -55,11 +56,12 @@ async function handleUserLogin(req, res) {
     const token = setUser(user);
 
     res.cookie("token", token, {
-      httpOnly: false,
-      sameSite: "None",
+      httpOnly: true,
+      sameSite: "none",
       secure: true,
       maxAge: 3600000 * 24,
       path: "/",
+      domain: "portfolify-frontend.vercel.app",
     });
 
     console.log(token);
