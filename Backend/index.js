@@ -14,7 +14,8 @@ const app = express();
 const corsOptions = {
   origin: "https://portfolify-frontend.vercel.app",
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
 };
 app.use(cors(corsOptions));
 app.use(express.json());
