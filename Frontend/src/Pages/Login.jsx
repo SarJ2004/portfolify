@@ -11,6 +11,10 @@ const Login = () => {
   const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    // Clear any existing tokens first
+    localStorage.removeItem("token");
+
     try {
       const response = await axios.post(
         "https://portfolify-three.vercel.app/login",
@@ -22,12 +26,20 @@ const Login = () => {
       );
       console.log(response.status);
       if (response.status === 200) {
-        console.log(response);
+        console.log("Full response:", response);
+        console.log("Response data:", response.data);
         const userId = response.data.id;
         const token = response.data.token;
 
+        console.log("Extracted token:", token);
+        console.log("Extracted userId:", userId);
+
         // Store token in localStorage as backup
         localStorage.setItem("token", token);
+        console.log(
+          "Token stored in localStorage:",
+          localStorage.getItem("token")
+        );
 
         // Small delay to ensure cookie is set before redirect
         setTimeout(() => {

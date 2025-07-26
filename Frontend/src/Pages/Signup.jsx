@@ -36,8 +36,15 @@ const Signup = () => {
       const userId = response.data.id;
       const token = response.data.token;
 
+      console.log("Extracted token:", token);
+      console.log("Extracted userId:", userId);
+
       // Store token in localStorage as backup
       localStorage.setItem("token", token);
+      console.log(
+        "Token stored in localStorage:",
+        localStorage.getItem("token")
+      );
 
       // Small delay to ensure cookie is set before redirect
       setTimeout(() => {

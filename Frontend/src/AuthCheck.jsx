@@ -14,16 +14,18 @@ const checkLoggedIn = () => {
   console.log("Token cookie:", tokenCookie);
 
   // First try to get token from cookies
-  if (tokenCookie !== undefined) {
-    const token = tokenCookie.split("=")[1].trim();
+  if (tokenCookie && tokenCookie.includes("=")) {
+    const token = tokenCookie.split("=")[1]?.trim();
 
-    try {
-      const decodedToken = jwtDecode(token);
-      const userId = decodedToken._id;
-      console.log("Decoded user ID from cookie:", userId);
-      return userId;
-    } catch (error) {
-      console.error("Error decoding token from cookie:", error);
+    if (token && token !== "") {
+      try {
+        const decodedToken = jwtDecode(token);
+        const userId = decodedToken._id;
+        console.log("Decoded user ID from cookie:", userId);
+        return userId;
+      } catch (error) {
+        console.error("Error decoding token from cookie:", error);
+      }
     }
   }
 
@@ -31,7 +33,7 @@ const checkLoggedIn = () => {
   const localToken = localStorage.getItem("token");
   console.log("Token from localStorage:", localToken);
 
-  if (localToken) {
+  if (localToken && localToken !== "null" && localToken !== "") {
     try {
       const decodedToken = jwtDecode(localToken);
       const userId = decodedToken._id;
