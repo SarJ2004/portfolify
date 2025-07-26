@@ -20,7 +20,7 @@ async function handleUserSignup(req, res) {
     const token = setUser(newUser);
 
     res.cookie("token", token, {
-      httpOnly: true,
+      httpOnly: false, // Allow JavaScript access for client-side reading
       sameSite: "none",
       secure: true,
       maxAge: 3600000, // 1 hour
@@ -55,7 +55,7 @@ async function handleUserLogin(req, res) {
     const token = setUser(user);
 
     res.cookie("token", token, {
-      httpOnly: true,
+      httpOnly: false, // Allow JavaScript access for client-side reading
       sameSite: "none",
       secure: true,
       maxAge: 3600000, // 1 hour

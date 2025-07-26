@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode"; // Importing as a default import
 
 const checkLoggedIn = () => {
+  console.log("All cookies:", document.cookie);
   const cookies = document.cookie.split(";");
+  console.log("Split cookies:", cookies);
+  
   const tokenCookie = cookies.find((cookie) =>
     cookie.trim().startsWith("token=")
   );
