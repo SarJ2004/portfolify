@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import CodingProfiles from "../components/Dashboard/CodingProfiles";
 
 const getAuthToken = () => {
+  // First try cookies
   const cookieString = document.cookie;
   const cookies = cookieString.split("; ");
   for (let cookie of cookies) {
@@ -15,6 +16,13 @@ const getAuthToken = () => {
       return value;
     }
   }
+
+  // Fallback to localStorage
+  const localToken = localStorage.getItem("token");
+  if (localToken && localToken !== "null" && localToken !== "") {
+    return localToken;
+  }
+
   return null;
 };
 

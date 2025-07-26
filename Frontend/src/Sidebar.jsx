@@ -24,7 +24,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation(); // To get current path
-  const userId = getToken()._id;
+  const tokenData = getToken();
+  const userId = tokenData?._id;
 
   useEffect(() => {
     const fetchUserInfo = async () => {

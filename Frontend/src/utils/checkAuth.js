@@ -2,15 +2,24 @@ import { jwtDecode } from "jwt-decode";
 
 export const getToken = () => {
   try {
-    const token = document.cookie
+    // First try cookies
+    const cookieToken = document.cookie
       .split("; ")
-      .find((row) => row.startsWith("token="))
-      .split("=")[1];
-    if (token) {
-      //   console.log(token);
-      const decodedToken = jwtDecode(token);
-      //   console.log(decodedToken.id);
-      return decodedToken; // Adjust based on your token's payload structure
+      .find((row) => row.startsWith("token="));
+
+    if (cookieToken) {
+      const token = cookieToken.split("=")[1];
+      if (token) {
+        const decodedToken = jwtDecode(token);
+        return decodedToken;
+      }
+    }
+
+    // Fallback to localStorage
+    const localToken = localStorage.getItem("token");
+    if (localToken && localToken !== "null" && localToken !== "") {
+      const decodedToken = jwtDecode(localToken);
+      return decodedToken;
     }
   } catch (error) {
     console.error("Error decoding token:", error);
