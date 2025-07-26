@@ -16,9 +16,9 @@ const corsOptions = {
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 };
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors(corsOptions));
 const PORT = process.env.PORT || 8001;
 
 connectToMongoDB(process.env.MONGO_URI)
