@@ -25,7 +25,6 @@ async function handleUserSignup(req, res) {
       secure: true,
       maxAge: 3600000 * 24,
       path: "/",
-      domain: "portfolify-frontend.vercel.app",
     });
 
     console.log(token);
@@ -61,7 +60,6 @@ async function handleUserLogin(req, res) {
       secure: true,
       maxAge: 3600000 * 24,
       path: "/",
-      domain: "portfolify-frontend.vercel.app",
     });
 
     console.log(token);
