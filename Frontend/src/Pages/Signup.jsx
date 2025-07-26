@@ -34,6 +34,10 @@ const Signup = () => {
       );
       console.log("User signed up:", response.data);
       const userId = response.data.id;
+      const token = response.data.token;
+
+      // Store token in localStorage as backup
+      localStorage.setItem("token", token);
 
       // Small delay to ensure cookie is set before redirect
       setTimeout(() => {

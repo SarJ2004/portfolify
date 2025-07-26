@@ -24,6 +24,10 @@ const Login = () => {
       if (response.status === 200) {
         console.log(response);
         const userId = response.data.id;
+        const token = response.data.token;
+
+        // Store token in localStorage as backup
+        localStorage.setItem("token", token);
 
         // Small delay to ensure cookie is set before redirect
         setTimeout(() => {

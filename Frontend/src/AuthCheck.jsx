@@ -7,24 +7,39 @@ const checkLoggedIn = () => {
   console.log("All cookies:", document.cookie);
   const cookies = document.cookie.split(";");
   console.log("Split cookies:", cookies);
-  
+
   const tokenCookie = cookies.find((cookie) =>
     cookie.trim().startsWith("token=")
   );
   console.log("Token cookie:", tokenCookie);
 
+  // First try to get token from cookies
   if (tokenCookie !== undefined) {
     const token = tokenCookie.split("=")[1].trim();
 
     try {
-      // Decode the token to get the user's ID
       const decodedToken = jwtDecode(token);
       const userId = decodedToken._id;
-      console.log("Decoded user ID:", userId);
+      console.log("Decoded user ID from cookie:", userId);
       return userId;
     } catch (error) {
-      console.error("Error decoding token:", error);
-      return null;
+      console.error("Error decoding token from cookie:", error);
+    }
+  }
+
+  // Fallback: try to get token from localStorage
+  const localToken = localStorage.getItem("token");
+  console.log("Token from localStorage:", localToken);
+
+  if (localToken) {
+    try {
+      const decodedToken = jwtDecode(localToken);
+      const userId = decodedToken._id;
+      console.log("Decoded user ID from localStorage:", userId);
+      return userId;
+    } catch (error) {
+      console.error("Error decoding token from localStorage:", error);
+      localStorage.removeItem("token"); // Remove invalid token
     }
   }
 
