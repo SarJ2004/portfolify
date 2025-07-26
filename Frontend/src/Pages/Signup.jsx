@@ -33,8 +33,12 @@ const Signup = () => {
         { withCredentials: true }
       );
       console.log("User signed up:", response.data);
-      const userId = response.data.id; // Use the returned user ID
-      navigate(`/${userId}/dashboard`); // Redirect to user-specific dashboard
+      const userId = response.data.id;
+
+      // Small delay to ensure cookie is set before redirect
+      setTimeout(() => {
+        navigate(`/${userId}/dashboard`);
+      }, 100);
     } catch (error) {
       setError("An error occurred during signup. Please try again.");
       setTimeout(() => setError(""), 5000);

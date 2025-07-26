@@ -23,7 +23,7 @@ async function handleUserSignup(req, res) {
       httpOnly: true,
       sameSite: "none",
       secure: true,
-      maxAge: 3600000 * 24,
+      maxAge: 3600000, // 1 hour
       path: "/",
     });
 
@@ -58,7 +58,7 @@ async function handleUserLogin(req, res) {
       httpOnly: true,
       sameSite: "none",
       secure: true,
-      maxAge: 3600000 * 24,
+      maxAge: 3600000, // 1 hour
       path: "/",
     });
 

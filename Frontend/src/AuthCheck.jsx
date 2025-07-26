@@ -8,15 +8,21 @@ const checkLoggedIn = () => {
   const tokenCookie = cookies.find((cookie) =>
     cookie.trim().startsWith("token=")
   );
-  console.log(tokenCookie);
+  console.log("Token cookie:", tokenCookie);
 
   if (tokenCookie !== undefined) {
     const token = tokenCookie.split("=")[1].trim();
 
-    // Decode the token to get the user's ID (assuming the ID is stored in the token)
-    const decodedToken = jwtDecode(token);
-    const userId = decodedToken._id; // Adjust based on your JWT structure
-    return userId;
+    try {
+      // Decode the token to get the user's ID
+      const decodedToken = jwtDecode(token);
+      const userId = decodedToken._id;
+      console.log("Decoded user ID:", userId);
+      return userId;
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      return null;
+    }
   }
 
   return null;
@@ -24,19 +30,33 @@ const checkLoggedIn = () => {
 
 const AuthCheck = () => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false); // State for sidebar open/closed
-  const userId = checkLoggedIn();
-  console.log(userId);
-  useEffect(() => {
-    if (!userId) {
-      navigate("/landing"); // Redirect to the landing page if not logged in
-    } else if (window.location.pathname === "/") {
-      navigate(`/${userId}/dashboard`); // Redirect to dashboard if logged in and on the root path
-    }
-  }, [userId, navigate]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [userId, setUserId] = useState(null);
 
-  if (!userId) {
-    return null; // Return nothing while the redirection is in progress
+  useEffect(() => {
+    // Add a small delay to ensure cookies are available
+    const timer = setTimeout(() => {
+      const id = checkLoggedIn();
+      setUserId(id);
+      setIsLoading(false);
+
+      if (!id) {
+        navigate("/landing");
+      } else if (window.location.pathname === "/") {
+        navigate(`/${id}/dashboard`);
+      }
+    }, 200); // 200ms delay
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
+  if (isLoading || !userId) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
   }
 
   return (

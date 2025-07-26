@@ -23,11 +23,14 @@ const Login = () => {
       console.log(response.status);
       if (response.status === 200) {
         console.log(response);
-        const userId = response.data.id; // Adjust according to your response
-        navigate(`/${userId}/dashboard`);
+        const userId = response.data.id;
+
+        // Small delay to ensure cookie is set before redirect
+        setTimeout(() => {
+          navigate(`/${userId}/dashboard`);
+        }, 100);
       }
       console.log("User logged in:", response.data);
-      // Handle successful login (e.g., redirect or store token)
     } catch (error) {
       setError("Invalid email or password");
       setTimeout(() => setError(""), 5000);
